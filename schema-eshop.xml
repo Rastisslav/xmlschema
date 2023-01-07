@@ -26,30 +26,29 @@
 		</xs:sequence>
 	</xs:complexType>
 
-  <xs:complexType name="ShowOrder">
+  <xs:complexType name="showOrder">
     <xs:sequence>
-        <xs:element name="Customer" type="customer" minOccurs="1" />
-        <xs:element name="Product" type="product" minOccurs="1" maxOccurs="unbounded" />
+        <xs:element name="Customer" type="customer"  />
+        <xs:element name="Product" type="product" minOccurs="0" maxOccurs="unbounded" />
         <xs:element name="DateOfCreation" type="xs:date" minOccurs="1" />
-    <xs:sequence>
+    </xs:sequence>
   </xs:complexType>
+
+  <xs:complexType name="requestedID">
+		<xs:sequence>
+			<xs:element name="ID" type="integer" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
 
 
 <!-- Full product info request and respond -->
-  <xs:element name="ProductInfoRequest">
-    <xs:sequence>
-        <xs:element name="ProductID" type="xs:integer" minOccurs="1" maxOccurs="unbounded" />
-    </xs:sequence>
-  </sx:element>
-  <xs:element name="ProductInfoResponse" type="product" minOccurs="1" maxOccurs="unbounded">
+  <xs:element name="ProductInfoRequest" type="requestedID"/>
+  <xs:element name="ProductInfoResponse" type="product" minOccurs="1" maxOccurs="unbounded"/>
 <!-- Full Customer info request and respond-->  
-  <xs:element name="ProductInfoRequest">
-    <xs:sequence>
-        <xs:element name="CustomerID" type="xs:integer" minOccurs="1" maxOccurs="1" />
-    </xs:sequence>
-  </sx:element>
-<xs:element name="Customer" type="customer"/>
+  <xs:element name="CustomerInfoRequest" type="requestedID"/>
+  <xs:element name="CustomerInfoResponse" type="customer"/>
 <!-- Full Order info based on date--> 
   <xs:element name="WhatOrder" type="whatOrder"/>  
   <xs:element name="ShowOrder" type="showOrder" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:schema>
 
