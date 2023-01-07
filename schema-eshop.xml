@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+<xs:complexType name="product">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="description" type="xs:string"/>
+      <xs:element name="price" type="xs:decimal"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:integer" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="customer">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="email" type="xs:string"/>
+      <xs:element name="phone" type="xs:string"/>
+      <xs:element name="address" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:integer" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="whatOrder">
+		<xs:sequence>
+			<xs:element name="DateWhenCreated" type="xs:date" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+  <xs:complexType name="ShowOrder">
+    <xs:sequence>
+        <xs:element name="Customer" type="customer" minOccurs="1" />
+        <xs:element name="Product" type="product" minOccurs="1" maxOccurs="unbounded" />
+        <xs:element name="DateOfCreation" type="xs:date" minOccurs="1" />
+    <xs:sequence>
+  </xs:complexType>
+
+
+<!-- Full product info request and respond -->
+  <xs:element name="ProductInfoRequest">
+    <xs:sequence>
+        <xs:element name="ProductID" type="xs:integer" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </sx:element>
+  <xs:element name="ProductInfoResponse" type="product" minOccurs="1" maxOccurs="unbounded">
+<!-- Full Customer info request and respond-->  
+  <xs:element name="ProductInfoRequest">
+    <xs:sequence>
+        <xs:element name="CustomerID" type="xs:integer" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </sx:element>
+<xs:element name="Customer" type="customer"/>
+<!-- Full Order info based on date--> 
+  <xs:element name="WhatOrder" type="whatOrder"/>  
+  <xs:element name="ShowOrder" type="showOrder" minOccurs="0" maxOccurs="unbounded"/>
+
