@@ -3,52 +3,84 @@
 
 <xs:complexType name="product">
     <xs:sequence>
-      <xs:element name="name" type="xs:string"/>
-      <xs:element name="description" type="xs:string"/>
-      <xs:element name="price" type="xs:decimal"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Description" type="xs:string"/>
+      <xs:element name="Price" type="xs:decimal"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:integer" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="customer">
     <xs:sequence>
-      <xs:element name="name" type="xs:string"/>
-      <xs:element name="email" type="xs:string"/>
-      <xs:element name="phone" type="xs:string"/>
-      <xs:element name="address" type="xs:string"/>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Email" type="xs:string"/>
+      <xs:element name="Phone" type="xs:string"/>
+      <xs:element name="Address" type="xs:string"/>
     </xs:sequence>
     <xs:attribute name="id" type="xs:integer" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="whatOrder">
 		<xs:sequence>
-			<xs:element name="DateWhenCreated" type="xs:date" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="DateWhenCreated" type="xs:date"/>
 		</xs:sequence>
 	</xs:complexType>
 
   <xs:complexType name="showOrder">
-    <xs:sequence>
-        <xs:element name="Customer" type="customer"  />
-        <xs:element name="Product" type="product" minOccurs="0" maxOccurs="unbounded" />
-        <xs:element name="DateOfCreation" type="xs:date" minOccurs="1" />
-    </xs:sequence>
+        <xs:sequence> 
+         <xs:element name="CustomerOrder" minOccurs="0" maxOccurs="unbounded">
+            <xs:complexType>
+              <xs:sequence>
+       			    <xs:element name="Customer" type="customer"/>
+                <xs:element name="Product" type="product" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element name="DateOfCreation" type="xs:date" minOccurs="1" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="requestedID">
 		<xs:sequence>
-			<xs:element name="ID" type="integer" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ID" type="xs:integer" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 
 
-<!-- Full product info request and respond -->
+  <!-- Request for information about product based on its ID (element "ID"; integer) -->
   <xs:element name="ProductInfoRequest" type="requestedID"/>
-  <xs:element name="ProductInfoResponse" type="product" minOccurs="1" maxOccurs="unbounded"/>
-<!-- Full Customer info request and respond-->  
+  <!-- Response of request for product containing name,description and its price
+        element("Product")
+          element("Name";string)
+          element("Description";string)
+          element("Price",integer) -->  
+  <xs:element name="ProductInfoResponse" type="product" />
+
+  <!-- Request for information about customer based on its ID (element "ID"; integer) -->  
   <xs:element name="CustomerInfoRequest" type="requestedID"/>
+  <!-- Response of request for product containing name,description and its price
+        element("Customer")
+          element("Name";string)
+          element("Email";string)
+          element("Phone",string)
+          element("Adress",string) -->  
   <xs:element name="CustomerInfoResponse" type="customer"/>
-<!-- Full Order info based on date--> 
-  <xs:element name="WhatOrder" type="whatOrder"/>  
-  <xs:element name="ShowOrder" type="showOrder" minOccurs="0" maxOccurs="unbounded"/>
-  </xs:schema>
+
+  <!-- Request for information about orders based on date (element "DateWhenCreated"; date) --> 
+  <xs:element name="OrdersOnDateRequest" type="whatOrder"/>
+  <!-- Response for request of list of orders on specific date
+        element("CustomerOrder")
+          element("Customer") 
+            element("Name"; string)
+            element("Email"; string)
+            element("Phone"; string)
+            element("Adress"; string) 
+          element("Product")
+            element("Name"; string)
+            element("Description"; string)
+            element("Price",integer)
+          element("DateOfCreation"; date) -->    
+  <xs:element name="OrdersOnDateResponse" type="showOrder" />
+
+</xs:schema>
 
