@@ -33,22 +33,28 @@
               <xs:sequence>
        			    <xs:element name="Customer" type="customer"/>
                 <xs:element name="Product" type="product" minOccurs="0" maxOccurs="unbounded" />
-                <xs:element name="DateOfCreation" type="xs:date" minOccurs="1" />
+                <xs:element name="DateOfCreation" type="xs:date" maxOccurs="1" />
               </xs:sequence>
             </xs:complexType>
           </xs:element>
         </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="requestedID">
+  <xs:complexType name="productID">
 		<xs:sequence>
-			<xs:element name="ID" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="ID" type="xs:integer" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+  <xs:complexType name="customerID">
+		<xs:sequence>
+			<xs:element name="ID" type="xs:integer" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 
 
   <!-- Request for information about product based on its ID (element "ID"; integer) -->
-  <xs:element name="ProductInfoRequest" type="requestedID"/>
+  <xs:element name="ProductInfoRequest" type="productID"/>
   <!-- Response of request for product containing name,description and its price
         element("Product")
           element("Name";string)
@@ -57,7 +63,7 @@
   <xs:element name="ProductInfoResponse" type="product" />
 
   <!-- Request for information about customer based on its ID (element "ID"; integer) -->  
-  <xs:element name="CustomerInfoRequest" type="requestedID"/>
+  <xs:element name="CustomerInfoRequest" type="customerID"/>
   <!-- Response of request for product containing name,description and its price
         element("Customer")
           element("Name";string)
@@ -83,4 +89,3 @@
   <xs:element name="OrdersOnDateResponse" type="showOrder" />
 
 </xs:schema>
-
